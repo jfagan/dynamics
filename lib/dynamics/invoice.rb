@@ -33,6 +33,10 @@ module Dynamics
       ("%.2f" % @invoice["CuryDocBal"]).to_f
     end
 
+    def doc_type
+      @invoice[:DocType]
+    end
+
     def as_json
       {
         "invoice_number": number,
@@ -41,7 +45,8 @@ module Dynamics
          "naked_balance": naked_balance,
           "total_amount": total_amount,
             "amount_due": amount_due,
-          "batch_number": batch_number
+          "batch_number": batch_number,
+              "doc_type": doc_type
       }
     end
 
