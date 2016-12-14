@@ -16,13 +16,19 @@ module Dynamics
 
     #TODO parse param start / end dates, allow for pagination params & to display paid invoices
     def get_invoices(params = {})
-      start_date = "09%2F01%2F2016"
-      end_date = "12%2F30%2F2016"
+      if params[:start_date].present? && params[:end_date].present?
+        start_date = CGI.escape(params[:start_date].strftime("%m/%d/%Y"))
+        end_date = CGI.escape(params[:end_date].strftime("%m/%d/%Y"))
+      else
+        start_date = CGI.escape(360.days.ago.strftime("%m/%d/%Y"))
+        end_date = CGI.escape(Date.today.strftime("%m/%d/%Y"))
+      end
+
       payload = {"name": "CuryDocBal", "Value": "&#33;=0"}
       end_point = "#{@api_endpoint}financial/accountsReceivable/invoiceAndMemo/query?startDocDate=#{start_date}&endDocDate=#{end_date}&custID=#{@customer_code}"
 
       response = request(end_point, payload)
-      JSON.parse(response.body).map{ |dynamics_invoice| Dynamics::Invoice.new(dynamics_invoice) }
+      JSON.parse(response.body).map{ |dynamics_invoice| next if dynamics_invoice["DocType"] != "IN"; Dynamics::Invoice.new(dynamics_invoice) }.compact
     end
 
     def get_invoice(params = {})
