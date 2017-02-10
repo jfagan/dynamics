@@ -17,6 +17,10 @@ module Dynamics
       DateTime.parse(@invoice["Crtd_DateTime"]).strftime("%m/%d/%Y") #"2016-06-02T08:09:00"
     end
 
+    def status=(new_status)
+      @invoice["CuryDocBal"] = (new_status == "UNPAID" ? naked_balance : "0.00")
+    end
+
     def status
       naked_balance > 0 ? "UNPAID" : "PAID"
     end
