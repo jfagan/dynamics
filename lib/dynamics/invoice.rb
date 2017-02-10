@@ -1,5 +1,6 @@
 module Dynamics
   class Invoice
+    attr_accessor :order_number
 
     def initialize(dynamics_json_invoice)
       @invoice = dynamics_json_invoice
@@ -50,7 +51,8 @@ module Dynamics
           "total_amount": total_amount,
             "amount_due": amount_due,
           "batch_number": batch_number,
-              "doc_type": doc_type
+              "doc_type": doc_type,
+          "order_number": order_number
       }
     end
 
