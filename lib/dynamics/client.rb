@@ -7,7 +7,7 @@ module Dynamics
       @company_id = COMPANY_ID
       @site_id = SITE_ID
       @customer_code = customer_code
-      @api_endpoint = 'https://ws.etslabs.com:8899/ctDynamicsSLREST/api/'
+      @api_endpoint = 'http://ws.etslabs.com:899/ctDynamicsSLREST/api/' #internal, non-ssl
 
       if @customer_code.blank? || @api_token.blank? || @company_id.blank? || @site_id.blank?
         raise ArgumentError, 'Customer Code, CompayID, SiteIT and API Auth Token are ALL required'
