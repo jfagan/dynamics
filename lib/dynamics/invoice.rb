@@ -7,19 +7,15 @@ module Dynamics
     end
 
     def number
-      @invoice["RefNbr"]
-    end
-
-    def batch_number
-      @invoice["BatNbr"]
+      @invoice["invoice_number"]
     end
 
     def date_issued
-      DateTime.parse(@invoice["Crtd_DateTime"]).strftime("%m/%d/%Y") #"2016-06-02T08:09:00"
+      DateTime.parse(@invoice["date_issued"]).strftime("%m/%d/%Y") #"2016-06-02T08:09:00"
     end
 
     def status=(new_status)
-      @invoice["CuryDocBal"] = (new_status == "UNPAID" ? naked_balance : "0.00")
+      (new_status == "UNPAID" ? naked_balance : "0.00")
     end
 
     def status
@@ -27,19 +23,15 @@ module Dynamics
     end
 
     def total_amount
-      "$%.2f" % @invoice["CuryOrigDocAmt"]
+      "$%.2f" % @invoice["total_amount"]
     end
 
     def amount_due
-      "$%.2f" % @invoice["CuryDocBal"]
+      "$%.2f" % @invoice["amount_due"]
     end
 
     def naked_balance
-      ("%.2f" % @invoice["CuryDocBal"]).to_f
-    end
-
-    def doc_type
-      @invoice[:DocType]
+      ("%.2f" % @invoice["amount_due"]).to_f
     end
 
     def as_json
@@ -50,8 +42,6 @@ module Dynamics
          "naked_balance": naked_balance,
           "total_amount": total_amount,
             "amount_due": amount_due,
-          "batch_number": batch_number,
-              "doc_type": doc_type,
           "order_number": order_number
       }
     end
