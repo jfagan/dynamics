@@ -35,6 +35,31 @@ module Dynamics
       Dynamics::Invoice.new(JSON.parse(response.body))
     end
 
+    def get_statement_cycle
+      end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/statement_cycles"
+      payload = {}
+
+      response = request("GET", end_point, payload)
+      if response.code == 200
+        JSON.parse(response.body)
+      else
+        "Dynamics API Error: HTTP #{response.code}"
+      end
+    end
+
+    def set_statement_cycle(params = {})
+      end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/statement_cycles"
+      payload = {frequency: params[:frequency],
+                 status: params[:state]}.to_json
+
+      response = request("POST", end_point, payload)
+      if response.code == 200
+        get_statement_cycle
+      else
+        "Dynamics API Error: HTTP #{response.code}"
+      end
+    end
+
     def request_headers
       {'Content-Type': 'application/json',
        'Accept': 'application/json'}
