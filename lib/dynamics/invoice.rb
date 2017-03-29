@@ -15,7 +15,7 @@ module Dynamics
     end
 
     def status=(new_status)
-      (new_status == "UNPAID" ? naked_balance : "0.00")
+      @invoice["amount_due"] = (new_status == "UNPAID" ? naked_balance : "0.00")
     end
 
     def status
