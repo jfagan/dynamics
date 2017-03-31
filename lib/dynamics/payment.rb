@@ -5,11 +5,8 @@ module Dynamics
     def initialize(ets_payment_obj = nil)
       @ets_payment_obj = ets_payment_obj
 
-      @api_token = API_KEY
-      @company_id = COMPANY_ID
-      @site_id = SITE_ID
       @customer_code = ets_payment_obj.client_code
-      @api_endpoint = ETS_DYNAMICS_API + "/api/payment/"
+      @api_endpoint = ENV["ETS_DYNAMICS_API"] + "/api/payment/"
 
       #TODO Delete this functionality soon after go live, crude logging solution for debugging.
       @api_log = DynamicsApiLog.new ({client_code: @customer_code,
@@ -32,6 +29,7 @@ module Dynamics
         "refnbr": ets_payment_obj.order.number,
         "amount": ets_payment_obj.amount,
         "invoices": ets_payment_obj.order.line_items.map(&:invoice_number),
+        "batch_type": ets_payment_obj.order.frequency,
         "notes": {
           "trans_number": ets_payment_obj.transaction_number,
           "user_id": ets_payment_obj.user_pid,
@@ -95,7 +93,7 @@ module Dynamics
       @api_log.save
 
       #TODO Uncomment this line for testing / production, no Dynamics demo environment
-      #response = RestClient.post(url, payload, request_headers)
+      response = RestClient.post(url, payload, request_headers)
 
       @api_log.response_code = response.code
       @api_log.response_headers = response.headers
