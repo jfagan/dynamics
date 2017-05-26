@@ -17,7 +17,7 @@ module Dynamics
         from_date = CGI.escape(params[:start_date].strftime("%m/%d/%Y"))
         date_to = CGI.escape(params[:end_date].strftime("%m/%d/%Y"))
       else
-        from_date = CGI.escape(360.days.ago.strftime("%m/%d/%Y"))
+        from_date = CGI.escape(1080.days.ago.strftime("%m/%d/%Y"))
         date_to = CGI.escape(Date.today.strftime("%m/%d/%Y"))
       end
 
@@ -53,7 +53,6 @@ module Dynamics
       payload = {frequency: params[:frequency],
                  status: params[:status]}.to_json
 
-      byebug
       response = request("POST", end_point, payload)
       if response.code == 200
         get_statement_cycle
