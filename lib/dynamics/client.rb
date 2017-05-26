@@ -49,9 +49,11 @@ module Dynamics
 
     def set_statement_cycle(params = {})
       end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/statement_cycles"
+      params[:status] = 'DISABLED' if params[:status] == 'INACTIVE'
       payload = {frequency: params[:frequency],
-                 status: params[:state]}.to_json
+                 status: params[:status]}.to_json
 
+      byebug
       response = request("POST", end_point, payload)
       if response.code == 200
         get_statement_cycle
