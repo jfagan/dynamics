@@ -18,7 +18,7 @@ module Dynamics
         date_to = CGI.escape(params[:end_date].strftime("%m/%d/%Y"))
       else
         from_date = CGI.escape(1080.days.ago.strftime("%m/%d/%Y"))
-        date_to = "" #CGI.escape(Date.today.strftime("%m/%d/%Y"))
+        date_to = CGI.escape(1.day.from_now.strftime("%m/%d/%Y"))
       end
 
       end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices?date_from=#{from_date}&date_to=#{date_to}"
