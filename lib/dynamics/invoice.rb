@@ -1,6 +1,7 @@
 module Dynamics
   class Invoice
     attr_accessor :order_number
+    attr_accessor :paid_online
 
     def initialize(dynamics_json_invoice)
       @invoice = dynamics_json_invoice
@@ -34,6 +35,10 @@ module Dynamics
       ("%.2f" % @invoice["amount_due"]).to_f
     end
 
+    def paid_online?
+      paid_online == true
+    end
+
     def as_json
       {
         "invoice_number": number,
@@ -42,7 +47,8 @@ module Dynamics
          "naked_balance": naked_balance,
           "total_amount": total_amount,
             "amount_due": amount_due,
-          "order_number": order_number
+          "order_number": order_number,
+          "paid_online": paid_online?
       }
     end
 
