@@ -11,7 +11,6 @@ module Dynamics
       end
     end
 
-    #TODO parse param start / end dates, allow for pagination params & to display paid invoices
     def get_invoices(params = {})
       if params[:start_date].present? && params[:end_date].present?
         from_date = CGI.escape(params[:start_date].strftime("%m/%d/%Y"))
