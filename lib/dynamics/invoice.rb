@@ -39,6 +39,10 @@ module Dynamics
       paid_online == true
     end
 
+    def pending_amount
+      ("%.2f" % @invoice["pending_amount"]).to_f
+    end
+
     def as_json
       {
         "invoice_number": number,
@@ -48,7 +52,8 @@ module Dynamics
           "total_amount": total_amount,
             "amount_due": amount_due,
           "order_number": order_number,
-          "paid_online": paid_online?
+          "paid_online": paid_online?,
+          "pending_amount": pending_amount
       }
     end
 
