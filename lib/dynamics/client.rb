@@ -15,12 +15,10 @@ module Dynamics
       if params[:start_date].present? && params[:end_date].present?
         from_date = CGI.escape(params[:start_date].strftime("%m/%d/%Y"))
         date_to = CGI.escape(params[:end_date].strftime("%m/%d/%Y"))
+        end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices?date_from=#{from_date}&date_to=#{date_to}"
       else
-        from_date = CGI.escape(1080.days.ago.strftime("%m/%d/%Y"))
-        date_to = CGI.escape(1.day.from_now.strftime("%m/%d/%Y"))
+        end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices"
       end
-
-      end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices?date_from=#{from_date}&date_to=#{date_to}"
 
       response = request("GET", end_point, nil)
       JSON.parse(response.body).map{ |dynamics_invoice| Dynamics::Invoice.new(dynamics_invoice) }.compact
