@@ -12,10 +12,9 @@ module Dynamics
     end
 
     def get_invoices(params = {})
-      if params[:start_date].present? && params[:end_date].present?
+      if params[:start_date].present?
         from_date = CGI.escape(params[:start_date].strftime("%m/%d/%Y"))
-        date_to = CGI.escape(params[:end_date].strftime("%m/%d/%Y"))
-        end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices?date_from=#{from_date}&date_to=#{date_to}"
+        end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices?date_from=#{from_date}"
       else
         end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices"
       end
