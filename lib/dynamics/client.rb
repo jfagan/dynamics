@@ -12,12 +12,20 @@ module Dynamics
     end
 
     def get_invoices(params = {})
+      end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices?"
+      end_point_params = []
+
       if params[:start_date].present?
         from_date = CGI.escape(params[:start_date].strftime("%m/%d/%Y"))
-        end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices?date_from=#{from_date}"
-      else
-        end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices"
+        end_point_params << "date_from=#{from_date}"
       end
+
+      if params[:end_date].present?
+        end_date = CGI.escape(params[:end_date].strftime("%m/%d/%Y"))
+        end_point_params << "date_to=#{end_date}"
+      end
+
+      end_point = end_point + end_point_params.join("&")
 
       response = request("GET", end_point, nil)
       JSON.parse(response.body).map{ |dynamics_invoice| Dynamics::Invoice.new(dynamics_invoice) }.compact
