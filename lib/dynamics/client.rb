@@ -15,13 +15,13 @@ module Dynamics
       end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices?"
       end_point_params = []
 
-      if params[:start_date].present?
-        from_date = CGI.escape(params[:start_date].strftime("%m/%d/%Y"))
+      if params[:start_date].present? && !params[:start_date].empty?
+        from_date = CGI.escape(Date.strptime(params[:start_date], "%m/%d/%Y").strftime("%m/%d/%Y"))
         end_point_params << "date_from=#{from_date}"
       end
 
-      if params[:end_date].present?
-        end_date = CGI.escape(params[:end_date].strftime("%m/%d/%Y"))
+      if params[:end_date].present? && !params[:end_date].empty?
+        end_date = CGI.escape(Date.strptime(params[:end_date], "%m/%d/%Y").strftime("%m/%d/%Y"))
         end_point_params << "date_to=#{end_date}"
       end
 
