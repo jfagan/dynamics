@@ -33,7 +33,7 @@ module Dynamics
 
         threads.each(&:join) #wait for all the threads to finish before proceeding
 
-        (2013..Date.current.year).to_a.each do |year|
+        (2015..Date.current.year).to_a.each do |year|
           invoices_resp = instance_variable_get("@year_#{year}")
           parsed_invoices = JSON.parse(invoices_resp.body).map{ |dynamics_invoice| Dynamics::Invoice.new(dynamics_invoice) }.compact
           invoices.push(*parsed_invoices)
