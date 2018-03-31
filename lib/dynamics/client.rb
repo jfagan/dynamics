@@ -24,7 +24,7 @@ module Dynamics
       if end_point_params.empty?
         #=====================
         threads = []
-        (2013..Date.current.year).to_a.each do |year|
+        (2015..Date.current.year).to_a.each do |year|
           threads << Thread.new {
             thread_endpoint = end_point + ["date_from=01/01/#{year}", "date_to=12/31/#{year}"].join("&")
             instance_variable_set("@year_#{year}", request("GET", thread_endpoint, nil) )
