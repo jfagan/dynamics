@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Ruby Wrapper for catalinatechnology.com's SL Dynamics API}
   spec.description   = %q{This gem is still at the ALPHA state & only offers functionality to fetch customer invoices}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/jfagan/dynamics"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
