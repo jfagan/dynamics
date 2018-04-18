@@ -14,7 +14,7 @@ module Dynamics
     end
 
     def get_invoices(params = {})
-      end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices2?"
+      end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices?"
       end_point_params = init_date_filters(params)
       invoices = []
 
