@@ -102,12 +102,12 @@ module Dynamics
       end_point_params = []
 
       if params[:start_date].present? && !params[:start_date].empty?
-        from_date = CGI.escape(Date.strptime(params[:start_date], "%m/%d/%Y").strftime("%m/%d/%Y"))
+        from_date = CGI.escape(Date.strptime(params[:start_date], "%Y/%m/%d").strftime("%m/%d/%Y"))
         end_point_params << "date_from=#{from_date}"
       end
 
       if params[:end_date].present? && !params[:end_date].empty?
-        end_date = CGI.escape(Date.strptime(params[:end_date], "%m/%d/%Y").strftime("%m/%d/%Y"))
+        end_date = CGI.escape(Date.strptime(params[:end_date], "%Y/%m/%d").strftime("%m/%d/%Y"))
         end_point_params << "date_to=#{end_date}"
       end
 
