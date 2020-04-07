@@ -38,7 +38,7 @@ module Dynamics
           parsed_invoices = JSON.parse(invoices_resp.body).map{ |dynamics_invoice| Dynamics::Invoice.new(dynamics_invoice) }.compact
           
           #HORRIBLE HACK REFACTOR ASAP
-          if @customer_code.to_i  == 07497 
+          if @customer_code.to_i == 7497 
             result.reject { |invoice| invoice.number == "1414910H" }
           #HORRIBLE HACK REFACTOR ASAP
 
