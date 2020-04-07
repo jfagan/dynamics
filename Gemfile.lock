@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dynamics (0.0.2)
+    dynamics (0.0.6)
 
 GEM
   remote: https://rubygems.org/
@@ -142,4 +142,4 @@ DEPENDENCIES
   rspec (~> 3.0)
 
 BUNDLED WITH
-   1.15.2
+   1.17.3

@@ -39,7 +39,7 @@ module Dynamics
           
           #HORRIBLE HACK REFACTOR ASAP
           if @customer_code.to_i  == 07497 
-            result.reject { |invoice| invoice.number == "1414910H" &&  }
+            result.reject { |invoice| invoice.number == "1414910H" }
           #HORRIBLE HACK REFACTOR ASAP
 
           invoices.push(*parsed_invoices)
