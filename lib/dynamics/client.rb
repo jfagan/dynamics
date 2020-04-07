@@ -36,6 +36,12 @@ module Dynamics
         (2015..Date.current.year).to_a.each do |year|
           invoices_resp = instance_variable_get("@year_#{year}")
           parsed_invoices = JSON.parse(invoices_resp.body).map{ |dynamics_invoice| Dynamics::Invoice.new(dynamics_invoice) }.compact
+          
+          #HORRIBLE HACK REFACTOR ASAP
+          if @customer_code.to_i  == 07497 
+            result.reject { |invoice| invoice.number == "1414910H" &&  }
+          #HORRIBLE HACK REFACTOR ASAP
+
           invoices.push(*parsed_invoices)
         end
         #=====================
