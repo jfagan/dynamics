@@ -66,7 +66,7 @@ module Dynamics
       payload = {}
 
       response = request("GET", end_point, payload)
-      Dynamics::Invoice.new(JSON.parse(response.body))
+      #Dynamics::Invoice.new(JSON.parse(response.body))
     end
 
     def get_statement_cycle
