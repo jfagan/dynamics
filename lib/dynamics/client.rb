@@ -24,7 +24,7 @@ module Dynamics
       if end_point_params.empty?
         #=====================
         threads = []
-        (2019..Date.current.year).to_a.each do |year|
+        (2020..Date.current.year).to_a.each do |year|
           threads << Thread.new {
             thread_endpoint = end_point + ["date_from=01/01/#{year}", "date_to=01/01/#{year+1}"].join("&")
             instance_variable_set("@year_#{year}", request("GET", thread_endpoint, nil) )
@@ -33,7 +33,7 @@ module Dynamics
 
         threads.each(&:join) #wait for all the threads to finish before proceeding
 
-        (2019..Date.current.year).to_a.each do |year|
+        (2020..Date.current.year).to_a.each do |year|
           invoices_resp = instance_variable_get("@year_#{year}")
           parsed_invoices = JSON.parse(invoices_resp.body).map{ |dynamics_invoice| Dynamics::Invoice.new(dynamics_invoice) }.compact
           
