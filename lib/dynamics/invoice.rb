@@ -52,7 +52,7 @@ module Dynamics
       {
         "invoice_number": number,
            "date_issued": date_issued,
-                "status": status,
+                "status": test_pending_status,
          "naked_balance": naked_balance,
           "total_amount": total_amount,
             "amount_due": amount_due,
