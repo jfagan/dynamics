@@ -19,6 +19,11 @@ module Dynamics
       @invoice["amount_due"] = (new_status == "UNPAID" ? naked_balance : "0.00")
     end
 
+    def test_pending_status
+      #if invoice is paid, return 'PENDING' otherwise return 'UNPAID'
+      status == "UNPAID" ? status : "PENDING"
+    end
+
     def status
       naked_balance > 0 ? "UNPAID" : "PAID"
     end
