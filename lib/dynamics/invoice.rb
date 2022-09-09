@@ -19,9 +19,15 @@ module Dynamics
       @invoice["amount_due"] = (new_status == "UNPAID" ? naked_balance : "0.00")
     end
 
-    def test_pending_status
+    def test_pending_status(date_paid = nil)
       #if invoice is paid, return 'PENDING' otherwise return 'UNPAID'
       status == "UNPAID" ? status : "PENDING"
+
+      #react testng - simulate closing a batch in Dynamics 
+      #***REMOVE FOR PRODUCTION / WHEN DOING PRODUCTION TEST***
+      if date_paid > 30.minutes.ago 
+        "PAID"
+      end 
     end
 
     def status
