@@ -15,6 +15,10 @@ module Dynamics
     def date_issued
       DateTime.parse(@invoice["date_issued"]).strftime("%m/%d/%Y") #"2016-06-02T08:09:00"
     end
+    
+    def date_issued_timestamp
+      DateTime.parse(@invoice["date_issued"]).strftime("%m/%d/%Y").to_time.to_i
+    end
 
     def status=(new_status)
       @invoice["amount_due"] = (new_status == "UNPAID" ? naked_balance : "0.00")
