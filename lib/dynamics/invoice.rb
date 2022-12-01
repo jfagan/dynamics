@@ -25,8 +25,8 @@ module Dynamics
     end
 
     def test_pending_status
-      #if invoice is paid, return 'PENDING' otherwise return 'UNPAID'
-      res = status == "UNPAID" ? status : "PENDING"
+      #if invoice has a pending payment, return 'PENDING' otherwise return the default status
+      res = pending_amount == total_amount ? "PENDING" : status
 
       #react testng - simulate closing a batch in Dynamics 
       #***REMOVE FOR PRODUCTION / WHEN DOING PRODUCTION TEST***
