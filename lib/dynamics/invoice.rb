@@ -26,7 +26,7 @@ module Dynamics
 
     def test_pending_status
       #if invoice has a pending payment, return 'PENDING' otherwise return the default status
-      res = pending_amount == naked_balance ? "PENDING" : status
+      res = pending_amount > 0 ? "PENDING" : status
 
       #react testng - simulate closing a batch in Dynamics 
       #***REMOVE FOR PRODUCTION / WHEN DOING PRODUCTION TEST***
