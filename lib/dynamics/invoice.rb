@@ -25,20 +25,24 @@ module Dynamics
     end
 
     def test_pending_status
-      #if invoice has a pending payment, return 'PENDING' otherwise return the default status
-      res = pending_amount > 0 ? "PENDING" : status
+      return "PENDING" if pending_amount > 0 #invoice paid, the payment batch waiting to close in dynamics
+      
+      return "UNPAID" if naked_balance > 0 #invoice has an unpaid balance 
+      
+      "PAID" if naked_balance == 0 #there is no balance on this invoice, must be paid 
 
       #react testng - simulate closing a batch in Dynamics 
       #***REMOVE FOR PRODUCTION / WHEN DOING PRODUCTION TEST***
-      if !date_paid_on.nil? && date_paid_on < 5.minutes.ago 
-        "PAID"
-      else
-        res
-      end 
+      #if !date_paid_on.nil? && date_paid_on < 5.minutes.ago 
+      #  "PAID"
+      #else
+      #  res
+      #end 
     end
 
     def status
-      naked_balance > 0 ? "UNPAID" : "PAID"
+      test_pending_status
+      #naked_balance > 0 ? "UNPAID" : "PAID"
     end
 
     def total_amount
@@ -65,7 +69,7 @@ module Dynamics
       {
         "invoice_number": number,
            "date_issued": date_issued,
-                "status": test_pending_status,
+                "status": status,
          "naked_balance": naked_balance,
           "total_amount": total_amount,
             "amount_due": amount_due,
