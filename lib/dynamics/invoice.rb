@@ -12,6 +12,14 @@ module Dynamics
       @invoice["invoice_number"]
     end
 
+    def is_offline_invoice?
+      #Accounting sometimes generates invoices that are not associated with a group, these "special invoices" are for services such as 
+      #courier fees (cork companies) and scopion kits. These invoices only exist in the Dynamics system.
+      #This is a crude implementation, we should check if the invoice number actually exists in the LIMS for a given client
+      #Examples of these invoices are 'L196'
+      number.length < 6
+    end
+
     def date_issued
       DateTime.parse(@invoice["date_issued"]).strftime("%m/%d/%Y") #"2016-06-02T08:09:00"
     end
@@ -75,7 +83,8 @@ module Dynamics
             "amount_due": amount_due,
           "order_number": order_number,
           "paid_online": paid_online?,
-          "pending_amount": pending_amount
+          "pending_amount": pending_amount,
+          "is_offline_invoice": is_offline_invoice?
       }
     end
 
