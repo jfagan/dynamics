@@ -29,6 +29,7 @@ module Dynamics
         "refnbr": ets_payment_obj.order.number,
         "amount": ets_payment_obj.amount,
         "invoices": ets_payment_obj.order.line_items.map(&:invoice_number),
+        "finance_charges": [],
         "batch_type": ets_payment_obj.order.frequency,
         "notes": {
           "trans_number": ets_payment_obj.transaction_number,
