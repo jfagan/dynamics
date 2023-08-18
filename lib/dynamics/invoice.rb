@@ -6,6 +6,7 @@ module Dynamics
 
     def initialize(dynamics_json_invoice)
       @invoice = dynamics_json_invoice
+      @status_over_ride = nil
     end
 
     def number
@@ -30,9 +31,12 @@ module Dynamics
 
     def status=(new_status)
       @invoice["amount_due"] = (new_status == "UNPAID" ? naked_balance : "0.00")
+      @status_over_ride = new_status
     end
 
     def test_pending_status
+      return @status_over_ride if !@status_over_ride.nil? #explicit status over ride 
+      
       return "PENDING" if pending_amount > 0 #invoice paid, the payment batch waiting to close in dynamics
       
       return "UNPAID" if naked_balance > 0 #invoice has an unpaid balance 
