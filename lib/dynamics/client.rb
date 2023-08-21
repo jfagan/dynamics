@@ -69,6 +69,16 @@ module Dynamics
       Dynamics::Invoice.new(JSON.parse(response.body)["invoice"])
     end
 
+
+    def get_finace_charges(params = {})
+      end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/finance_charges"
+      finance_charges = []
+
+      response = request("GET", end_point, nil)
+      response
+    end
+
+
     def get_statement_cycle
       end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/statement_cycles"
       payload = {}
