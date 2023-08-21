@@ -62,6 +62,7 @@ module Dynamics
     end
 
     def get_invoice(invoice_number)
+      from_date = '01/01' + 5.years.ago
       end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices/#{invoice_number}"
       payload = {}
 
@@ -71,7 +72,8 @@ module Dynamics
 
 
     def get_finace_charges(params = {})
-      end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/finance_charges"
+      start_date = '01/01/' + 5.years.ago.strftime('%Y')
+      end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/finance_charges?date_from=#{start_date}" #by default, the API will only return records <= 1 year old
       finance_charges = []
 
       response = request("GET", end_point, nil)
