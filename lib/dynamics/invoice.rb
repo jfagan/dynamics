@@ -88,7 +88,8 @@ module Dynamics
           "order_number": order_number,
           "paid_online": paid_online?,
           "pending_amount": pending_amount,
-          "is_offline_invoice": is_offline_invoice?
+          "is_offline_invoice": is_offline_invoice?,
+          "doc_type": "Invoice",
       }
     end
 

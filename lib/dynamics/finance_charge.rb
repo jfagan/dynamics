@@ -67,7 +67,8 @@ module Dynamics
               "amount_due": amount_due,
             "order_number": order_number,
             "paid_online": paid_online?,
-            "pending_amount": pending_amount
+            "pending_amount": pending_amount,
+            "doc_type": "Finance Charge",
         }
       end
 
