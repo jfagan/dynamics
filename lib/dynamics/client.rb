@@ -78,7 +78,13 @@ module Dynamics
 
       response = request("GET", end_point, nil)
 
-      JSON.parse(response.body).map{ |dynamics_finance_charge| Dynamics::FinanceCharge.new(dynamics_finance_charge) }.compact
+      finance_charges = JSON.parse(response.body).map{ |dynamics_finance_charge| Dynamics::FinanceCharge.new(dynamics_finance_charge) }.compact
+
+      if !params.empty && !params[:status].nil?
+        finance_charges = finance_charges.find_all{|fc| fc.status ==  params[:status] }
+      end 
+
+      finance_charges
     end
 
 
