@@ -80,7 +80,7 @@ module Dynamics
 
       finance_charges = JSON.parse(response.body).map{ |dynamics_finance_charge| Dynamics::FinanceCharge.new(dynamics_finance_charge) }.compact
 
-      if !params.empty && params.has_key?(:status)
+      if params.has_key?(:status)
         finance_charges = finance_charges.find_all{|fc| fc.status ==  params[:status] }
       end 
 
