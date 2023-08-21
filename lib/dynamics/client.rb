@@ -71,13 +71,16 @@ module Dynamics
     end
 
 
-    def get_finace_charges(params = {})
-      start_date = '01/01/' + 5.years.ago.strftime('%Y')
+    def get_finance_charges(params = {})
+      start_date = '01/01/' + 5.years.ago.strftime('%Y') #by default, get all finance charges from 5 years ago to now
       end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/finance_charges?date_from=#{start_date}" #by default, the API will only return records <= 1 year old
       finance_charges = []
 
       response = request("GET", end_point, nil)
-      response
+
+      finance_charges = JSON.parse(response.body).map{ |dynamics_finance_charge| Dynamics::FinanceCharge.new(dynamics_finance_charge) }.compact
+
+      finance_charges.sort_by{|fc| fc.date_issued_timestamp }
     end
 
 
