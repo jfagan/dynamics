@@ -78,9 +78,7 @@ module Dynamics
 
       response = request("GET", end_point, nil)
 
-      finance_charges = JSON.parse(response.body).map{ |dynamics_finance_charge| Dynamics::FinanceCharge.new(dynamics_finance_charge) }.compact
-
-      finance_charges.sort_by{|fc| fc.date_issued_timestamp }
+      JSON.parse(response.body).map{ |dynamics_finance_charge| Dynamics::FinanceCharge.new(dynamics_finance_charge) }.compact
     end
 
 
