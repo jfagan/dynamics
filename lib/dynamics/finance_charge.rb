@@ -59,7 +59,7 @@ module Dynamics
   
       def as_json
         {
-               "fc_number": number,
+               "invoice_number": number,
              "date_issued": date_issued,
                   "status": status,
            "naked_balance": naked_balance,
