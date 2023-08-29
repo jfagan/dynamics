@@ -28,8 +28,8 @@ module Dynamics
       { "custid": ets_payment_obj.client_code,
         "refnbr": ets_payment_obj.order.number,
         "amount": ets_payment_obj.amount,
-        "invoices": ets_payment_obj.order.line_items.map(&:invoice_number),
-        "finance_charges": [],
+        "invoices": ets_payment_obj.order.line_items.where(doc_type: 'Invoice').map(&:invoice_number),
+        "finance_charges": ets_payment_obj.order.line_items.where(doc_type: 'Finance Charge').map(&:invoice_number),
         "batch_type": ets_payment_obj.order.frequency,
         "notes": {
           "trans_number": ets_payment_obj.transaction_number,
