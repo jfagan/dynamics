@@ -62,7 +62,6 @@ module Dynamics
     end
 
     def get_invoice(invoice_number)
-      from_date = '01/01' + 5.years.ago
       end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices/#{invoice_number}"
       payload = {}
 
