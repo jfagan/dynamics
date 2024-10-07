@@ -13,6 +13,7 @@ module Dynamics
       end
     end
 
+
     def get_invoices(params = {})
       end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/invoices?"
       end_point_params = init_date_filters(params)
@@ -24,7 +25,7 @@ module Dynamics
       if end_point_params.empty?
         #=====================
         threads = []
-        (2022..Date.current.year).to_a.each do |year|
+        (2023..Date.current.year).to_a.each do |year|
           threads << Thread.new {
             thread_endpoint = end_point + ["date_from=01/01/#{year}", "date_to=01/01/#{year+1}"].join("&")
             instance_variable_set("@year_#{year}", request("GET", thread_endpoint, nil) )
@@ -33,7 +34,7 @@ module Dynamics
 
         threads.each(&:join) #wait for all the threads to finish before proceeding
 
-        (2022..Date.current.year).to_a.each do |year|
+        (2023..Date.current.year).to_a.each do |year|
           invoices_resp = instance_variable_get("@year_#{year}")
           parsed_invoices = JSON.parse(invoices_resp.body).map{ |dynamics_invoice| Dynamics::Invoice.new(dynamics_invoice) }.compact
           
@@ -71,7 +72,7 @@ module Dynamics
 
 
     def get_finance_charges(params = {})
-      start_date = '01/01/' + 5.years.ago.strftime('%Y') #by default, get all finance charges from 5 years ago to now
+      start_date = '01/01/' + 3.years.ago.strftime('%Y') #by default, get all finance charges from 5 years ago to now
       end_point = "#{@api_endpoint}/api/clients/#{@customer_code}/finance_charges?date_from=#{start_date}" #by default, the API will only return records <= 1 year old
       finance_charges = []
 
