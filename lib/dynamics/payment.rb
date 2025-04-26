@@ -25,6 +25,7 @@ module Dynamics
     end
 
     def as_json
+      gateway_response = HashWithIndifferentAccess.new(ets_payment_obj.gateway_response.params)
       { "custid": ets_payment_obj.client_code,
         "refnbr": ets_payment_obj.order.number,
         "amount": ets_payment_obj.amount,
@@ -35,14 +36,14 @@ module Dynamics
           "trans_number": ets_payment_obj.transaction_number,
           "user_id": ets_payment_obj.user_pid,
           "user_name": "#{ets_payment_obj.order.user.firstname} #{ets_payment_obj.order.user.lastname}",
-          "receipt_email": ets_payment_obj.gateway_response[:billing][:email],
+          "receipt_email": gateway_response[:billing][:email],
           "gateway_name": "PayJunction",
           "payment_source": {
-            "object": map_web_to_dynamics_object_type(ets_payment_obj.gateway_response[:vault][:type]),
-            "brand": ets_payment_obj.gateway_response[:vault][:accountType],
+            "object": map_web_to_dynamics_object_type(gateway_response[:vault][:type]),
+            "brand": gateway_response[:vault][:accountType],
             "expiry_month": "",
             "expiry_year": "",
-            "last4": ets_payment_obj.gateway_response[:vault][:lastFour]
+            "last4": gateway_response[:vault][:lastFour]
           }
         }
       }
